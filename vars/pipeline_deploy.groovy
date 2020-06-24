@@ -29,7 +29,7 @@ def call(String pipelineConfigPath) {
                         echo "Environment: ${params.environment}"
 
                         try {
-                            sh("helm install -f nodejs/values-${params.environment}.yaml nodejs helm/nodejs")
+                            sh("helm install -f helm/nodejs/values-${params.environment}.yaml nodejs helm/nodejs")
                             echo "Application successfully deployed on ${params.environment} environment."
                         } catch (caughtError) {
                             buildErrorMessage = caughtError
