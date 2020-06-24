@@ -16,7 +16,7 @@ def call(String pipelineConfigPath) {
                     expression { "${config.pipeline.stages.build.status}" == "enabled" }
                 }
                 steps {
-                    Build("${config.pipeline.stages.build.cmd_name}", "${config.pipeline.stages.build.cmd_args}")
+                    sh "${config.pipeline.stages.build.cmd_name} ${config.pipeline.stages.build.cmd_args}"
                 }
             }
         }
