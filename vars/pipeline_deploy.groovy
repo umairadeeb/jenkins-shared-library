@@ -29,9 +29,7 @@ def call(String pipelineConfigPath) {
                         echo "Environment: ${params.environment}"
 
                         try {
-                            sh("helm uninstall nodejs || echo 'Application not running!'")
-                            sleep(time:15,unit:"SECONDS")
-                            sh("helm install -f helm/nodejs/values-${params.environment}.yaml nodejs helm/nodejs")
+                            sh("helm install -f helm/nodejs/values-${params.environment}.yaml nodejs helm/nodejs || helm upgrade -f helm/nodejs/values-${params.environment}.yaml nodejs helm/nodejs")
                             echo "Application successfully deployed on ${params.environment} environment."
                             echo "---"
                             echo "---"
@@ -50,7 +48,7 @@ def call(String pipelineConfigPath) {
                         waitUntil {
                             script {
                                 def r = sh script: 'curl -sI http://localhost/ | head -1 | grep "200 OK" &> /dev/null', returnStatus: true
-                                return (r == "0");
+                                return (r == 0);
                             }
                         }
                     }
