@@ -31,6 +31,10 @@ def call(String pipelineConfigPath) {
                         try {
                             sh("helm install -f helm/nodejs/values-${params.environment}.yaml nodejs helm/nodejs")
                             echo "Application successfully deployed on ${params.environment} environment."
+                            echo "---"
+                            echo "---"
+                            echo "You can access the application after couple of seconds on this url."
+                            echo "Application URL: http://localhost/"
                         } catch (caughtError) {
                             buildErrorMessage = caughtError
                             throw buildErrorMessage
