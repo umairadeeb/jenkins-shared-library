@@ -44,6 +44,18 @@ def call(String pipelineConfigPath) {
                     }
                 }
             }
+            stage('Smoke Test') {
+                steps {
+                    timeout(10) {
+                        waitUntil {
+                            script {
+                                def r = sh script: 'curl -sI http://localhost/ | head -1 | grep "200 OK" &> /dev/null', returnStatus: true
+                                return (r == "0");
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
