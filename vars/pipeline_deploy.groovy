@@ -30,6 +30,7 @@ def call(String pipelineConfigPath) {
 
                         try {
                             sh("helm uninstall nodejs || echo 'Application not running!'")
+                            sleep(time:15,unit:"SECONDS")
                             sh("helm install -f helm/nodejs/values-${params.environment}.yaml nodejs helm/nodejs")
                             echo "Application successfully deployed on ${params.environment} environment."
                             echo "---"
