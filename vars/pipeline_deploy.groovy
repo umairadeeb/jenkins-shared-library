@@ -47,7 +47,7 @@ def call(String pipelineConfigPath) {
                     timeout(10) {
                         waitUntil {
                             script {
-                                def r = sh script: 'curl -sI http://localhost/ | head -1 | grep "200 OK" &> /dev/null', returnStatus: true
+                                def r = sh script: "curl -s http://localhost/ | grep ${params.environment}  &> /dev/null", returnStatus: true
                                 return (r == 0);
                             }
                         }
